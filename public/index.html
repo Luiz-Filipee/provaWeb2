@@ -9,62 +9,30 @@
 
     <h1>Jogo de Adivinhação Multiplayer</h1>
 
+    <div id="statusMestre" style="margin: 10px 0; font-weight: bold;"></div>
+
     <div>
         <input type="text" id="nome" placeholder="Digite seu nome">
         <button onclick="enviarNome()">Enviar Nome</button>
     </div>
 
     <div>
+        <input type="number" id="numeroSecreto" placeholder="Definir número secreto">
+        <button id="btnEnviarNumero" onclick="definirNumero()">Definir Número</button>
+    </div>
+
+    <div>
         <input type="number" id="palpite" placeholder="Seu palpite">
-        <button onclick="enviarPalpite()">Enviar Palpite</button>
+        <button id="btnEnviarPalpite" onclick="enviarPalpite()">Enviar Palpite</button>
+    </div>
+
+    <div>
+        <input type="text" id="mensagemChat" placeholder="Digite uma mensagem">
+        <button onclick="enviarChat()">Enviar Chat</button>
     </div>
 
     <div id="log"></div>
 
-    <script>
-        const ws = new WebSocket(`ws://192.168.100.63:5432`);
-
-        ws.onopen = () => {
-            addLog('Conectado ao servidor.');
-        };
-
-        ws.onmessage = (event) => {
-            addLog(event.data);
-        };
-
-        ws.onclose = () => {
-            addLog('Desconectado do servidor.');
-        };
-
-        function enviarNome() {
-            const nome = document.getElementById('nome').value.trim();
-            if (nome) {
-                ws.send(`nome:${nome}`);
-                addLog(`Nome enviado: ${nome}`);
-            } else {
-                alert('Digite seu nome!');
-            }
-        }
-
-        function enviarPalpite() {
-            const palpite = document.getElementById('palpite').value.trim();
-            if (palpite) {
-                ws.send(palpite);
-                addLog(`Palpite enviado: ${palpite}`);
-            } else {
-                alert('Digite seu palpite!');
-            }
-        }
-
-        function addLog(msg) {
-            const log = document.getElementById('log');
-            const div = document.createElement('div');
-            div.className = 'msg';
-            div.textContent = msg;
-            log.appendChild(div);
-            log.scrollTop = log.scrollHeight;
-        }
-    </script>
-
+    <script src="script.js"></script>
 </body>
 </html>
